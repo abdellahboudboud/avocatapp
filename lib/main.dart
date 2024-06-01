@@ -2,6 +2,7 @@
 
 import 'package:avocatapp/Models/files.dart';
 import 'package:avocatapp/Models/images.dart';
+import 'package:avocatapp/Models/meetings.dart';
 import 'package:avocatapp/Models/videos.dart';
 import 'package:avocatapp/pages/home_pages.dart';
 import 'package:avocatapp/themes/light_theme.dart';
@@ -16,11 +17,13 @@ void main() async {
   Hive.registerAdapter(ImagesAdapter());
   Hive.registerAdapter(VideosAdapter());
   Hive.registerAdapter(FilesAdapter());
+  Hive.registerAdapter(MeetingsAdapter());
 
   var clientlistBox = await Hive.openBox('listClientsBox');
   var imagesClientsBox = await Hive.openBox('imagesClientsBox');
   var videosClientsBox = await Hive.openBox('videosClientsBox');
   var filesClientsBox = await Hive.openBox('filesClientsBox');
+  var MeetingsBox = await Hive.openBox('MeetingsBox');
   runApp(const MyApp());
   // initalize hive
 }

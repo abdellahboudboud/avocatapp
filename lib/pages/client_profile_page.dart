@@ -303,8 +303,7 @@ class _ClientProfileState extends State<ClientProfile> {
                                 ? Image.file(
                                     File(user.profileImagePath),
                                     fit: BoxFit.cover,
-                                  )
-                                : Container(
+                                  ) : Container(
                                     height: 130,
                                     width: 130,
                                     color: Theme.of(context)
@@ -322,7 +321,7 @@ class _ClientProfileState extends State<ClientProfile> {
                 child: ListView.builder(
                     itemCount: items.length,
                     itemBuilder: ((context, index) => GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             // make a phone call to number directly
                             if (index == 0) {
                               String? encodeQueryParameters(
@@ -344,19 +343,19 @@ class _ClientProfileState extends State<ClientProfile> {
                               );
 
                               try {
-                                launchUrl(emailLaunchUri);
+                                await launchUrl(emailLaunchUri);
                               } catch (e) {
                                 print(e.toString());
                               }
                             }
                             if (index == 1) {
-                              FlutterPhoneDirectCaller.callNumber(
+                              await FlutterPhoneDirectCaller.callNumber(
                                   items[index][1]);
                             } else if (index == 2) {
-                              FlutterPhoneDirectCaller.callNumber(
+                              await FlutterPhoneDirectCaller.callNumber(
                                   items[index][1]);
                             } else if (index == 3) {
-                              FlutterPhoneDirectCaller.callNumber(
+                              await FlutterPhoneDirectCaller.callNumber(
                                   items[index][1]);
                             }
                           },

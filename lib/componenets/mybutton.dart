@@ -16,15 +16,14 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.circular(12),
+      ),
       margin: EdgeInsets.all(5),
       width: double.infinity,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                    side: BorderSide(color: Colors.red)))),
+      child: GestureDetector(
+        onTap: onPressed,
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 15),
           child: Row(

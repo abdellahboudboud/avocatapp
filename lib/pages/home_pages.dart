@@ -4,7 +4,9 @@ import 'package:avocatapp/Models/user.dart';
 import 'package:avocatapp/componenets/testimenial_items.dart';
 import 'package:avocatapp/database/clients_images_db.dart';
 import 'package:avocatapp/database/clients_list_db.dart';
+import 'package:avocatapp/database/meetings_list_db.dart';
 import 'package:avocatapp/pages/clients_page.dart';
+import 'package:avocatapp/pages/meetings_page.dart';
 import 'package:avocatapp/pages/send_email_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -23,6 +25,7 @@ class _homepageState extends State<Homepage> {
   final clientImagelistBox = Hive.box('imagesClientsBox');
 // database functions
   ClientsListDB db = ClientsListDB();
+  MeetingsListDB db_Meetings = MeetingsListDB();
   ClientsImagesDB _imagesDB = ClientsImagesDB();
 
   @override
@@ -44,6 +47,14 @@ class _homepageState extends State<Homepage> {
       _imagesDB.loadData();
     }
 
+    // meetings  list db
+    if (db_Meetings.MeetingsBox.get("MeetingsBox") == null) {
+      db_Meetings.createInitiaData();
+      db_Meetings.updateDatabase();
+    } else {
+      db_Meetings.loadData();
+    }
+
     // TODO: implement initState
     super.initState();
   }
@@ -54,6 +65,7 @@ class _homepageState extends State<Homepage> {
     ["المحاميـات", "lib/images/female-lawyer.png"],
     ["البريـد", "lib/images/email.png"],
     ["النقبــاء", "lib/images/nokaba2.png"],
+    ["الجلســات", "lib/images/mahkama.png"],
   ];
 
 // access the page dependes on the index of the page
@@ -68,6 +80,8 @@ class _homepageState extends State<Homepage> {
     3: notification
 
     4: nokaba2
+
+    5: jalasat mahkama
 
 */
   void _selectedSection(int index) {
@@ -136,7 +150,7 @@ class _homepageState extends State<Homepage> {
       } else if (index == 4) {
         /* 
         
-            2: NOKABA2
+            4: NOKABA2
         
         */
         Navigator.push(
@@ -150,6 +164,24 @@ class _homepageState extends State<Homepage> {
                       buttonIcon: Icons.person_add,
                       searchText: "... ابحث عن نقيـب",
                       job: "نقيـب",
+                    )));
+      }else if (index == 5) {
+        /* 
+        
+            4: JALASAT MAHKAMA
+        
+        */
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MeetingsPage(
+                      db: db_Meetings,
+                      typeUser: "5",
+                      title: "الجلســات",
+                      buttonName: "جلســة جديد",
+                      buttonIcon: Icons.lock_clock,
+                      searchText: "... ابحث عن جلســة",
+                      job: "جلســة",
                     )));
       }
     });
